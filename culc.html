@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<style>
+			body{width:80%, margin:50px auto;}
+			.flex {display: flex;}
+			.flex-col {display:flex; flex-direction: column;}
+		</style>
+	</head>
+	<body>
+
+		<h1> my super calc </h1>
+
+		<div class="content flex-col">
+			<input class="input1" type="number"></input>
+      <input class="input2" type="number"></input>
+		</div>
+
+    <div class ="culc">
+      <button type="button" id="culcPlus">+</button>
+      <button type="button" id="culcminus">-</button>
+      <button type="button" id="culcMulti">*</button>
+      <button type="button" id="culcDivision">/</button>
+    </div>
+
+    <div class="results">
+		<h2>results</h2>
+      <input ></input>
+		</div>
+
+		<div class="Exercies">
+			<div class="row flex">
+				<input class='rezults' disabled></input>
+					<button type='button' class="edit">edit</button>
+					<button type='button' class="delete">delete</button>
+				</div>
+		</div>
+
+		<script>
+
+				var el=document.querySelectorAll('.culc button');
+				console.log(el);
+				for (let i=0; i<el.length; i++){
+					console.log (el[i]);
+					el[i].addEventListener("click", function(e){
+
+						let action=(e.target.textContent);
+						let num1=parseInt(document.querySelector('.input1').value);
+						let num2=parseInt(document.querySelector('.input2').value);
+						let rezult=0;
+
+						switch(action) {
+						  case '+':
+						    setRes(num1+num2);
+						    break;
+						  case '-':
+								setRes(num1-num2);
+						    break;
+							case '*':
+								setRes(num1*num2);
+							  break;
+							case '/':
+								setRes(num1/num2);
+							break;
+						}
+						document.querySelector('.Exercies input').value=num1+action+num2;
+					 });
+				}
+
+
+
+				function setRes(x,num1,num2,action){
+					document.querySelector('.results input').value=x;
+
+				}
+
+
+
+
+
+		</script>
+
+  </body>
