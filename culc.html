@@ -10,72 +10,104 @@
 
 		<h1> my super calc </h1>
 
+
 		<div class="content flex-col">
 			<input class="input1" type="number"></input>
       <input class="input2" type="number"></input>
 		</div>
 
     <div class ="culc">
-      <button type="button" id="culcPlus">+</button>
-      <button type="button" id="culcminus">-</button>
-      <button type="button" id="culcMulti">*</button>
-      <button type="button" id="culcDivision">/</button>
+      <button type="button" id="culcPlus"/>+</button>
+      <button type="button" id="culcminus"/>-</button>
+      <button type="button" id="culcMulti"/>*</button>
+      <button type="button" id="culcDivision"/>/</button>
     </div>
 
-    <div class="results">
+    <div class="results" >
 		<h2>results</h2>
       <input ></input>
 		</div>
 
-		<div class="Exercies">
-			<div class="row flex">
-				<input class='rezults' disabled></input>
-					<button type='button' class="edit">edit</button>
-					<button type='button' class="delete">delete</button>
-				</div>
+		<div class="Exercies" id='some-id'>
+
 		</div>
 
 		<script>
 
 				var el=document.querySelectorAll('.culc button');
-				console.log(el);
-				for (let i=0; i<el.length; i++){
-					console.log (el[i]);
-					el[i].addEventListener("click", function(e){
+				el.forEach ((button) =>{button.addEventListener("click", ()=>{culc(event)})});
 
-						let action=(e.target.textContent);
+
+				function culc(event){
+						let action=event.target.textContent;
 						let num1=parseInt(document.querySelector('.input1').value);
 						let num2=parseInt(document.querySelector('.input2').value);
 						let rezult=0;
 
 						switch(action) {
 						  case '+':
-						    setRes(num1+num2);
+						    rezult=(num1+num2);
 						    break;
 						  case '-':
-								setRes(num1-num2);
+								rezult=(num1-num2);
 						    break;
 							case '*':
-								setRes(num1*num2);
+								rezult=(num1*num2);
 							  break;
 							case '/':
-								setRes(num1/num2);
+								rezult=(num1/num2);
 							break;
 						}
-						document.querySelector('.Exercies input').value=num1+action+num2;
-					 });
-				}
 
+						document.querySelector('.results input').value=rezult;
+						let rezultStr=num1+action+num2+'='+rezult;
 
+						let row=`
+						<div class="row flex">
+							<input class='rezults' value='${rezultStr}' disabled></input>
+							<button type='button' onclick="edit(this)" class="edit">edit</button>
+							<button type='button' onclick="del(this)" class="delete">delete</button>
+						</div>
+						`;
 
-				function setRes(x,num1,num2,action){
-					document.querySelector('.results input').value=x;
+						document.querySelector('.Exercies').innerHTML+=row;
+					 }
 
-				}
+					 function del(x){
+						 x.parentNode.parentNode.removeChild(x.parentNode);
+					 }
 
+					 function edit(x){
+						 x.innerHTML='OK';
+						 x.attributes.getNamedItem("onclick").value="ok(this)";
+						 x.parentNode.firstChild.nextSibling.disabled=false;
+					 }
 
+					 function ok(x){
+						 x.innerHTML='edit';
+						 x.attributes.getNamedItem("onclick").value="edit(this)";
+						 x.parentNode.firstChild.nextSibling.disabled=true;
+					 }
+</script>
+<script>
+// Select the node that will be observed for mutations
+// create an observer instance
+// Select the node that will be observed for mutations
+var targetNode = document.getElementById('some-id');
 
+// Options for the observer (which mutations to observe)
+var config = { attributes: true, childList: true, subtree: true };
 
+// Callback function to execute when mutations are observed
+var callback = function(mutationsList, observer) {
+    console.log ('mutation');
+};
+
+// Create an observer instance linked to the callback function
+var observer = new MutationObserver(callback);
+
+// Start observing the target node for configured mutations
+observer.observe(targetNode, config);
 
 		</script>
 
