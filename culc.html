@@ -1,5 +1,7 @@
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="style.css">
+
 		<style>
 			body{width:80%, margin:50px auto;}
 			.flex {display: flex;}
@@ -28,14 +30,16 @@
       <input ></input>
 		</div>
 
-		<div class="Exercies" id='some-id'>
+		<div class="Exercies flash"  id="flash" >
 
 		</div>
-
+		<script src="script.js"></script>
 		<script>
+
 
 				var el=document.querySelectorAll('.culc button');
 				el.forEach ((button) =>{button.addEventListener("click", ()=>{culc(event)})});
+
 
 
 				function culc(event){
@@ -58,7 +62,6 @@
 								rezult=(num1/num2);
 							break;
 						}
-
 						document.querySelector('.results input').value=rezult;
 						let rezultStr=num1+action+num2+'='+rezult;
 
@@ -89,26 +92,7 @@
 						 x.parentNode.firstChild.nextSibling.disabled=true;
 					 }
 </script>
-<script>
-// Select the node that will be observed for mutations
-// create an observer instance
-// Select the node that will be observed for mutations
-var targetNode = document.getElementById('some-id');
 
-// Options for the observer (which mutations to observe)
-var config = { attributes: true, childList: true, subtree: true };
 
-// Callback function to execute when mutations are observed
-var callback = function(mutationsList, observer) {
-    console.log ('mutation');
-};
-
-// Create an observer instance linked to the callback function
-var observer = new MutationObserver(callback);
-
-// Start observing the target node for configured mutations
-observer.observe(targetNode, config);
-
-		</script>
 
   </body>
